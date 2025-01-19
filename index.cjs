@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const fetch = require('node-fetch');
+const fetch = await import('node-fetch');
 
 try {
     const issue = github.context.payload.issue;
