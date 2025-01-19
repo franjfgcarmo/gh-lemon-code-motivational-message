@@ -1,18 +1,30 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const axios = require('axios');
+const https = require('https');
 
 try {
     const issue = github.context.payload.issue;
 
     if (issue.labels.some(label => label.name === 'motivate')) {
-        axios.get('https://favqs.com/api/qotd').then(response => {
-            const quote = response.data.quote.body;
-            const author = response.data.quote.author;
+        https.get('https://favqs.com/api/qotd', (resp) => {
+            let data = '';
+
+            // A chunk of data has been received.
+            resp.on('data', (chunk) => {
+            data += chunk;
+            });
+
+            // The whole response has been received. Print out the result.
+            resp.on('end', () => {
+            const response = JSON.parse(data);
+            const quote = response.quote.body;
+            const author = response.quote.author;
             console.log(`Motivational message: "${quote}" - ${author}`);
-        }).catch(error => {
-            console.error(error);
-        });    
+            });
+
+        }).on("error", (err) => {
+            console.error("Error: " + err.message);
+        });
     }
     else {
         console.log('No motivational label found.');
