@@ -11,7 +11,5 @@ This action gets the motivational message when an issue is created with the tag 
 
 ```yaml
     - name: Given motivational message
-    uses: franjfgcarmo/get-commodity-price-action@1.
-    with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      uses: franjfgcarmo/get-commodity-price-action@1.
 ```
