@@ -11,5 +11,5 @@ This action gets the motivational message when an issue is created with the tag 
 
 ```yaml
     - name: Given motivational message
-      uses: franjfgcarmo/get-commodity-price-action@1.
+      uses: franjfgcarmo/get-commodity-price-action@1.0.0
 ```
