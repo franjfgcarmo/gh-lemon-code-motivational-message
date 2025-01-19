@@ -1,6 +1,6 @@
 import { setFailed } from '@actions/core';
 import { context } from '@actions/github';
-import { get } from 'axios';
+import { axios } from 'axios';
 
 
 
@@ -8,7 +8,7 @@ try {
     const issue = context.payload.issue;
 
     if (issue.labels.some(label => label.name === 'motivate')) {
-        get('https://favqs.com/api/qotd').then(response => {
+        axios.get('https://favqs.com/api/qotd').then(response => {
             const quote = response.data.quote.body;
             const author = response.data.quote.author;
             console.log(`Motivational message: "${quote}" - ${author}`);
