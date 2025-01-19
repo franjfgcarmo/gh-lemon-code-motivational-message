@@ -2,4 +2,4 @@ name: 'Get motivational message'
 description: 'This action gets the motivational message when an issue is created with the tag motivate. The console shows the motivational message.'
 runs:
   using: 'node20'
-  main: 'index.cjs'
+  main: 'index.js'
