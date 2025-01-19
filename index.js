@@ -1,11 +1,9 @@
-import { setFailed } from '@actions/core';
-import { context } from '@actions/github';
-import { axios } from 'axios';
-
-
+const core = require('@actions/core');
+const github = require('@actions/github');
+const axios = require('axios');
 
 try {
-    const issue = context.payload.issue;
+    const issue = github.context.payload.issue;
 
     if (issue.labels.some(label => label.name === 'motivate')) {
         axios.get('https://favqs.com/api/qotd').then(response => {
@@ -13,7 +11,7 @@ try {
             const author = response.data.quote.author;
             console.log(`Motivational message: "${quote}" - ${author}`);
         }).catch(error => {
-            setFailed(error.message);
+            console.error(error);
         });    
     }
     else {
@@ -21,5 +19,5 @@ try {
     }
 
 } catch (error) {
-    setFailed(error.message);
+    core.setFailed(error.message);
 }
